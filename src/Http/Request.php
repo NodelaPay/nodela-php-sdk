@@ -37,14 +37,14 @@ class Request
         return $headers;
     }
 
-    public function get(string $endpoint, array $query = []): Response
+    public function get(string $endpoint, array $query = [], array $headers = []): Response
     {
-        return $this->request('GET', $endpoint, ['query' => $query]);
+        return $this->request('GET', $endpoint, ['query' => $query, 'headers' => $headers]);
     }
 
-    public function post(string $endpoint, array $data = []): Response
+    public function post(string $endpoint, array $data = [], array $headers = []): Response
     {
-        return $this->request('POST', $endpoint, ['json' => $data]);
+        return $this->request('POST', $endpoint, ['json' => $data, 'headers' => $headers]);
     }
 
     public function put(string $endpoint, array $data = []): Response
@@ -99,7 +99,8 @@ class Request
         $response = $e->getResponse();
         $statusCode = $response->getStatusCode();
         $body = json_decode($response->getBody()->getContents(), true) ?? [];
-        $message = $body['message'] ?? $body['error'] ?? 'Client error occurred';
+        $nestedError = is_array($body['error'] ?? null) ? $body['error'] : [];
+        $message = $body['message'] ?? $nestedError['message'] ?? (is_string($body['error'] ?? null) ? $body['error'] : 'Client error occurred');
 
         switch ($statusCode) {
             case 401:

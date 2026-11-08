@@ -7,6 +7,7 @@ namespace Nodelapay\Nodela\Tests\Unit;
 use Nodelapay\Nodela\Client;
 use Nodelapay\Nodela\Config;
 use Nodelapay\Nodela\Http\Request;
+use Nodelapay\Nodela\Resources\Billing;
 use Nodelapay\Nodela\Resources\Invoices;
 use Nodelapay\Nodela\Resources\Transactions;
 use PHPUnit\Framework\TestCase;
@@ -24,6 +25,12 @@ class ClientTest extends TestCase
     {
         $client = new Client('test-api-key');
         $this->assertInstanceOf(Transactions::class, $client->transactions);
+    }
+
+    public function testClientExposesBillingResource(): void
+    {
+        $client = new Client('test-api-key');
+        $this->assertInstanceOf(Billing::class, $client->billing);
     }
 
     public function testClientAcceptsCustomConfig(): void

@@ -75,6 +75,14 @@
       ]
     },
     {
+      "id": "billing",
+      "title": "Recurring Billing",
+      "file": "billing.md",
+      "description": "Customers, subscriptions, usage, billing reads, and checkout sessions",
+      "order": 5,
+      "tags": ["billing", "subscriptions", "usage", "checkout"]
+    },
+    {
       "id": "supported-currencies",
       "title": "Supported Currencies",
       "file": "supported-currencies.md",

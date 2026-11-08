@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nodelapay\Nodela;
 
 use Nodelapay\Nodela\Http\Request;
+use Nodelapay\Nodela\Resources\Billing;
 use Nodelapay\Nodela\Resources\Invoices;
 use Nodelapay\Nodela\Resources\Transactions;
 
@@ -15,6 +16,7 @@ class Client
 
     public readonly Invoices $invoices;
     public readonly Transactions $transactions;
+    public readonly Billing $billing;
 
     public function __construct(string $apiKey, ?Config $config = null)
     {
@@ -22,5 +24,6 @@ class Client
         $this->request = new Request($this->config);
         $this->invoices = new Invoices($this->request);
         $this->transactions = new Transactions($this->request);
+        $this->billing = new Billing($this->request);
     }
 }
